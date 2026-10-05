@@ -5,7 +5,6 @@ resource "aws_vpc" "main" {
   }
 }
 
-
 locals {
   subnets_public = {
     "zone-a" = { cidr = "10.0.1.0/24", zone = "eu-west-2a" }

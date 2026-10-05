@@ -9,7 +9,7 @@ resource "aws_security_group_rule" "elb_allow_http" {
   from_port         = 80
   to_port           = 80
   security_group_id = aws_security_group.elb_allow_http.id
-  cidr_blocks       = [aws_vpc.main.cidr_block]
+  cidr_blocks       = ["0.0.0.0/0"]
   protocol          = "tcp"
 }
 
@@ -28,11 +28,19 @@ resource "aws_security_group_rule" "allow_http_ipv4" {
   source_security_group_id = aws_security_group.elb_allow_http.id 
 }
 
+locals {
+  security_group = {
+    elb = aws_security_group.elb_allow_http.id
+    ec2 = aws_security_group.allow_http.id
+  }
+}
+
 resource "aws_security_group_rule" "allow_all_egress" {
+  for_each = local.security_group
   type = "egress"
   from_port = 0
   to_port = 0
-  protocol = -1
-  security_group_id = aws_security_group.allow_http.id
-  cidr_blocks = [ aws_vpc.main.cidr_block ]
+  protocol = "-1"
+  security_group_id = each.value
+  cidr_blocks = [ "0.0.0.0/0" ]
 }
