@@ -1,5 +1,5 @@
 ---
-Ceci est un projet de déploiement d'une stack web modulaire et multi-az (VPC / ALB / ASG)**.
+Ceci est un projet de déploiement d'une stack web modulaire et multi-az (VPC / ALB / ASG).
 
 Schéma de l'infrastructure : 
 
