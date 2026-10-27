@@ -73,7 +73,7 @@ resource "aws_route_table" "rt_private" {
 }
 
 resource "aws_route_table_association" "rt_association_ng" {
-  for_each = aws_subnet.main_private
+  for_each       = aws_subnet.main_private
   route_table_id = aws_route_table.rt_private.id
   subnet_id      = each.value.id
 }
